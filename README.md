@@ -10,6 +10,13 @@ I developed this app to showcase my academic-level knowledge in Java programming
 - MySQL 8.0
 - RabbitMQ 3.7
 
+## Entity-Relationship Diagrams (EER)
+
+I've provided visual representations in form of .png of the database structures through Entity-Relationship Diagrams (EER). These diagrams offer a comprehensive overview of how the data is organized and the relationships between different entities in the system.
+
+Feel free to explore these diagrams to gain insights into the underlying data models of the User and Cinema databases.
+
+
 ## Installation Guide
 
 ### Requirements
