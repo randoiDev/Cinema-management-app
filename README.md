@@ -140,8 +140,10 @@ Admin credentials:
 - Email: admin@gmail.com
 - Password: password1
 
-### Note
+### Notes
 Some endpoint routes require parameter "Authorization" and here you will provide yout jwt in the context "Bearer [jwt token goes here]"
+The password for cashiers are "cashier" + first 2 digits of id card number
+The password for managers are "manager" + first 2 digits of id card number
 
 ## Cinema Service
 
