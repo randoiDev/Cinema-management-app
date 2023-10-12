@@ -141,9 +141,12 @@ Admin credentials:
 - Password: password1
 
 ### Notes
+
+The password for created cashier is "cashier" + first 2 digits of id card number
+
+The password for created manager is "manager" + first 2 digits of id card number
+
 Some endpoint routes require parameter "Authorization" and here you will provide yout jwt in the context "Bearer [jwt token goes here]"
-The password for cashiers are "cashier" + first 2 digits of id card number
-The password for managers are "manager" + first 2 digits of id card number
 
 ## Cinema Service
 
