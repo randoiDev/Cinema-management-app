@@ -269,13 +269,10 @@ public class ShowtimeServiceImp implements ShowtimeService {
      */
     @Override
     public Collection<ShowtimeDto> getShowsByMovie(Integer page, Integer size, Long movieId) {
-        Iterable<Showtime> collection = showtimeRepository.getShowtimesByMovie(PageRequest.of(page, size), movieId);
-        Iterator<Showtime> iterator = collection.iterator();
-        List<ShowtimeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(showtimeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return showtimeRepository.getShowtimesByMovie(PageRequest.of(page, size), movieId)
+                .stream()
+                .map(showtime -> showtimeMapper.toDto(showtime))
+                .toList();
     }
 
     /**
@@ -289,13 +286,10 @@ public class ShowtimeServiceImp implements ShowtimeService {
      */
     @Override
     public Collection<ShowtimeDto> getShowsByCinema(Integer page, Integer size, Long cinemaId) {
-        Iterable<Showtime> collection = showtimeRepository.getShowtimesByCinema(PageRequest.of(page, size), cinemaId);
-        Iterator<Showtime> iterator = collection.iterator();
-        List<ShowtimeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(showtimeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return showtimeRepository.getShowtimesByCinema(PageRequest.of(page, size), cinemaId)
+                .stream()
+                .map(showtime -> showtimeMapper.toDto(showtime))
+                .toList();
     }
 
     /**
@@ -309,13 +303,10 @@ public class ShowtimeServiceImp implements ShowtimeService {
      */
     @Override
     public Collection<ShowtimeDto> getShowsByProjectionDate(Integer page, Integer size, Long showtimeDate) {
-        Iterable<Showtime> collection = showtimeRepository.getShowtimesByShowtimeDate(PageRequest.of(page, size), new Date(showtimeDate));
-        Iterator<Showtime> iterator = collection.iterator();
-        List<ShowtimeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(showtimeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return showtimeRepository.getShowtimesByShowtimeDate(PageRequest.of(page, size), new Date(showtimeDate))
+                .stream()
+                .map(showtime -> showtimeMapper.toDto(showtime))
+                .toList();
     }
 
     /**

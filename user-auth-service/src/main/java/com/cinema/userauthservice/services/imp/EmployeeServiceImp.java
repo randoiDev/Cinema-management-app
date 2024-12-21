@@ -11,8 +11,6 @@ import com.cinema.userauthservice.exceptions.RecordNotFoundException;
 import com.cinema.userauthservice.mappers.EmployeeMapper;
 import com.cinema.userauthservice.repositories.EmployeeRepository;
 import com.cinema.userauthservice.services.EmployeeService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -23,10 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @<code>EmployeeServiceImp</code> - Class that has methods that are responsible for invoking business logic for a specific endpoint call.
@@ -175,13 +170,10 @@ public class EmployeeServiceImp implements EmployeeService {
      */
     @Override
     public Collection<EmployeeDto> filterEmployeesByEmail(Integer page, Integer size, String searchPattern) {
-        Iterable<Employee> collection = employeeRepository.filterEmployeesByEmail(PageRequest.of(page, size), searchPattern);
-        Iterator<Employee> iterator = collection.iterator();
-        List<EmployeeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(employeeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return employeeRepository.filterEmployeesByEmail(PageRequest.of(page, size), searchPattern)
+                .stream()
+                .map(employee -> employeeMapper.toDto(employee))
+                .toList();
     }
 
     /**
@@ -195,13 +187,10 @@ public class EmployeeServiceImp implements EmployeeService {
      */
     @Override
     public Collection<EmployeeDto> filterEmployeesByManager(Integer page, Integer size, Long id) {
-        Iterable<Employee> collection = employeeRepository.filterEmployeesByManager(PageRequest.of(page, size), id);
-        Iterator<Employee> iterator = collection.iterator();
-        List<EmployeeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(employeeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return employeeRepository.filterEmployeesByManager(PageRequest.of(page, size), id)
+                .stream()
+                .map(employee -> employeeMapper.toDto(employee))
+                .toList();
     }
 
     /**
@@ -215,13 +204,10 @@ public class EmployeeServiceImp implements EmployeeService {
      */
     @Override
     public Collection<EmployeeDto> filterEmployeesByIdCardNumber(Integer page, Integer size, String searchPattern) {
-        Iterable<Employee> collection = employeeRepository.filterEmployeesByIdCardNumber(PageRequest.of(page, size), searchPattern);
-        Iterator<Employee> iterator = collection.iterator();
-        List<EmployeeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(employeeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return employeeRepository.filterEmployeesByIdCardNumber(PageRequest.of(page, size), searchPattern)
+                .stream()
+                .map(employee -> employeeMapper.toDto(employee))
+                .toList();
     }
 
     /**
@@ -235,13 +221,10 @@ public class EmployeeServiceImp implements EmployeeService {
      */
     @Override
     public Collection<EmployeeDto> filterEmployeesByRole(Integer page, Integer size, UserRole role) {
-        Iterable<Employee> collection = employeeRepository.filterEmployeesByRole(PageRequest.of(page, size), role);
-        Iterator<Employee> iterator = collection.iterator();
-        List<EmployeeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(employeeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return employeeRepository.filterEmployeesByRole(PageRequest.of(page, size), role)
+                .stream()
+                .map(employee -> employeeMapper.toDto(employee))
+                .toList();
     }
 
     /**
@@ -255,13 +238,10 @@ public class EmployeeServiceImp implements EmployeeService {
      */
     @Override
     public Collection<EmployeeDto> filterEmployeesByCinema(Integer page, Integer size, Long id) {
-        Iterable<Employee> collection = employeeRepository.filterEmployeesByCinema(PageRequest.of(page, size), id);
-        Iterator<Employee> iterator = collection.iterator();
-        List<EmployeeDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(employeeMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return employeeRepository.filterEmployeesByCinema(PageRequest.of(page, size), id)
+                .stream()
+                .map(employee -> employeeMapper.toDto(employee))
+                .toList();
     }
 
 }

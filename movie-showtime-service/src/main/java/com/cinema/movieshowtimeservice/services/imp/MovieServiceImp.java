@@ -86,6 +86,7 @@ public class MovieServiceImp implements MovieService {
         }
         Iterator<MovieRating> iterator = movie.getMovieRatings().iterator();
         while (iterator.hasNext()) {
+            iterator.next().setMovie(movie);
         }
         movieRepository.save(movie);
         return new Response("Movie '" + movie.getTitle() + "' removed successfully!");
@@ -124,13 +125,10 @@ public class MovieServiceImp implements MovieService {
      */
     @Override
     public Collection<MovieDto> getMoviesByReleaseYear(Integer page, Integer size, Integer year) {
-        Iterable<Movie> collection = movieRepository.getMoviesByReleaseYear(PageRequest.of(page, size), year);
-        Iterator<Movie> iterator = collection.iterator();
-        List<MovieDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(movieMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return  movieRepository.getMoviesByReleaseYear(PageRequest.of(page, size), year)
+                .stream()
+                .map(movie -> movieMapper.toDto(movie))
+                .toList();
     }
 
     /**
@@ -144,13 +142,10 @@ public class MovieServiceImp implements MovieService {
      */
     @Override
     public Collection<MovieDto> filterMoviesBySearchPattern(Integer page, Integer size, String searchPattern) {
-        Iterable<Movie> collection = movieRepository.filterMoviesBySearchPattern(PageRequest.of(page, size), searchPattern);
-        Iterator<Movie> iterator = collection.iterator();
-        List<MovieDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(movieMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return movieRepository.filterMoviesBySearchPattern(PageRequest.of(page, size), searchPattern)
+        .stream()
+                .map(movie -> movieMapper.toDto(movie))
+                .toList();
     }
 
     /**
@@ -210,13 +205,10 @@ public class MovieServiceImp implements MovieService {
      */
     @Override
     public Collection<MovieRatingDto> getMovieRatingsByMovie(Integer page, Integer size, Long movieId) {
-        Iterable<MovieRating> collection = movieRatingRepository.getMovieRatingsByMovie(PageRequest.of(page, size), movieId);
-        Iterator<MovieRating> iterator = collection.iterator();
-        List<MovieRatingDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(movieRatingMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return movieRatingRepository.getMovieRatingsByMovie(PageRequest.of(page, size), movieId)
+                .stream()
+                .map(movieRating -> movieRatingMapper.toDto(movieRating))
+                .toList();
     }
 
 

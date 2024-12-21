@@ -121,13 +121,10 @@ public class CinemaServiceImp implements CinemaService {
      */
     @Override
     public Collection<CinemaDto> filterCinemasBySearchPattern(Integer page, Integer size, String searchPattern) {
-        Iterable<Cinema> collection = cinemaRepository.filterCinemasBySearchPattern(PageRequest.of(page, size), searchPattern);
-        Iterator<Cinema> iterator = collection.iterator();
-        List<CinemaDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(cinemaMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return cinemaRepository.filterCinemasBySearchPattern(PageRequest.of(page, size), searchPattern)
+                .stream()
+                .map(cinema -> cinemaMapper.toDto(cinema))
+                .toList();
     }
 
     /**
@@ -222,13 +219,10 @@ public class CinemaServiceImp implements CinemaService {
      */
     @Override
     public Collection<MovieTheaterDto> getMovieTheatersByCinema(Integer page, Integer size, Long cinemaId) {
-        Iterable<MovieTheater> collection = movieTheaterRepository.getMovieTheaterByCinema(PageRequest.of(page, size), cinemaId);
-        Iterator<MovieTheater> iterator = collection.iterator();
-        List<MovieTheaterDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            newCollection.add(movieTheaterMapper.toDto(iterator.next()));
-        }
-        return newCollection;
+        return movieTheaterRepository.getMovieTheaterByCinema(PageRequest.of(page, size), cinemaId)
+                .stream()
+                .map(movieTheater -> movieTheaterMapper.toDto(movieTheater))
+                .toList();
     }
 
 

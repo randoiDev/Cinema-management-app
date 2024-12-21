@@ -13,8 +13,6 @@ import com.cinema.userauthservice.repositories.UserRepository;
 import com.cinema.userauthservice.security.jwt.JwtService;
 import com.cinema.userauthservice.services.AMQPService;
 import com.cinema.userauthservice.services.UserService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -158,16 +156,11 @@ public class UserServiceImp implements UserService {
      */
     @Override
     public Collection<UserDto> filterUsers(Integer page, Integer size, String searchPattern) {
-        Iterable<User> collection = userRepository.filterUsers(PageRequest.of(page, size), searchPattern);
-        Iterator<User> iterator = collection.iterator();
-        List<UserDto> newCollection = new ArrayList<>();
-        while (iterator.hasNext()) {
-            User user = iterator.next();
-            if(user.isEnabled()) {
-                newCollection.add(userMapper.toDto(user));
-            }
-        }
-        return newCollection;
+        return userRepository.filterUsers(PageRequest.of(page, size), searchPattern)
+                .stream()
+                .filter(user -> user.isEnabled())
+                .map(user -> userMapper.toDto(user))
+                .toList();
     }
 
     /**
